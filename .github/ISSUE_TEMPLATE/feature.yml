@@ -1,0 +1,13 @@
+name: Feature request
+description: Propose a focused cron-builder improvement
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes: { label: Problem, description: What scheduling workflow is not covered? }
+    validations: { required: true }
+  - type: textarea
+    id: proposal
+    attributes: { label: Proposed behavior, description: Specify the cron dialect and expected semantics. }
+    validations: { required: true }

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Build and preview five-field cron expressions locally.">
+  <title>Human-Friendly Cron Builder</title>
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+  <header class="hero">
+    <p class="eyebrow">Local schedule workbench</p>
+    <h1>Know when your cron will actually run.</h1>
+    <p>Build a standard five-field cron expression, read a plain-language breakdown, and preview upcoming runs in the time zone that matters.</p>
+  </header>
+  <main>
+    <section class="panel builder" aria-labelledby="builder-title">
+      <div>
+        <p class="step">01 · Expression</p>
+        <h2 id="builder-title">Set the schedule</h2>
+      </div>
+      <form id="cron-form">
+        <label for="expression">Cron expression</label>
+        <input id="expression" value="0 9 * * MON-FRI" autocomplete="off" spellcheck="false">
+        <div class="legend" aria-hidden="true"><span>minute</span><span>hour</span><span>day</span><span>month</span><span>weekday</span></div>
+        <label for="timezone">IANA time zone</label>
+        <input id="timezone" value="UTC" autocomplete="off" spellcheck="false">
+        <button type="submit">Preview schedule</button>
+      </form>
+      <div class="presets" aria-label="Schedule presets">
+        <button type="button" data-cron="*/15 * * * *">Every 15 minutes</button>
+        <button type="button" data-cron="0 9 * * MON-FRI">Weekdays at 9</button>
+        <button type="button" data-cron="30 6 1 * *">First of month</button>
+      </div>
+      <p id="status" role="status"></p>
+    </section>
+    <section class="panel explanation" aria-labelledby="explain-title">
+      <p class="step">02 · Meaning</p>
+      <h2 id="explain-title">Field-by-field explanation</h2>
+      <p id="explanation"></p>
+      <button id="copy" type="button">Copy expression</button>
+    </section>
+    <section class="panel preview" aria-labelledby="preview-title">
+      <p class="step">03 · Reality check</p>
+      <h2 id="preview-title">Next eight runs</h2>
+      <ol id="preview"></ol>
+      <p class="warning">Cron engines differ. This tool implements standard five-field syntax and Vixie-style day-of-month/day-of-week behavior. Confirm the expression in your actual scheduler before production use.</p>
+    </section>
+  </main>
+  <footer>Runs entirely in your browser. Nothing is saved or transmitted.</footer>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
