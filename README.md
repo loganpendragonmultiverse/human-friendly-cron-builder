@@ -30,3 +30,7 @@ Quartz syntax, seconds, years, L, W, #, ?, nicknames such as @daily, and wraparo
     npm run build
 
 Node.js 20 or newer is required for development only. The deployed application has no runtime dependencies. Contributions follow [CONTRIBUTING.md](CONTRIBUTING.md), security reports follow [SECURITY.md](SECURITY.md), and the code uses the [MIT License](LICENSE).
+
+## More open-source projects
+
+This project is part of the [Logan Pendragon Forge open-source collection](https://www.loganpendragonforge.com/open-source/). Browse the catalog for other released tools, source repositories, live demos, and downloads.
