@@ -138,7 +138,8 @@ export function explainCron(expression) {
   const describe = (values, spec, source) => {
     if (source === "*") return "every " + spec.name;
     if (values.length === 1) return spec.name + " " + values[0];
-    return spec.name + "s " + values.join(", ");
+    const pluralName = spec.name === "day of week" ? "days of week" : spec.name + "s";
+    return pluralName + " " + values.join(", ");
   };
   return parsed.fields.map((values, index) => describe(values, FIELD_SPECS[index], sources[index])).join("; ");
 }

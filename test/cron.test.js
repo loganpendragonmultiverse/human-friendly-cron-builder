@@ -80,7 +80,7 @@ test("extracts stable calendar parts", () => {
 test("produces a deterministic field explanation", () => {
   assert.equal(
     explainCron("0 9 * * MON-FRI"),
-    "minute 0; hour 9; every day of month; every month; day of weeks 1, 2, 3, 4, 5",
+    "minute 0; hour 9; every day of month; every month; days of week 1, 2, 3, 4, 5",
   );
 });
 
