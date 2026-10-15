@@ -1,5 +1,10 @@
 import { explainCron, nextRuns, parseCron, validateTimeZone } from "./cron.js";
 
+import { previewCalendar } from "./calendar.js";
+
+const calendar = document.querySelector("#calendar");
+let displayed = null;
+
 const form = document.querySelector("#cron-form");
 const expression = document.querySelector("#expression");
 const timeZone = document.querySelector("#timezone");
@@ -12,6 +17,8 @@ const presets = document.querySelectorAll("[data-cron]");
 timeZone.value = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
 
 function render() {
+  displayed = null;
+  calendar.disabled = true;
   status.textContent = "";
   preview.replaceChildren();
   try {
@@ -21,11 +28,12 @@ function render() {
     explanation.textContent = explainCron(value);
     const formatter = new Intl.DateTimeFormat(undefined, {
       timeZone: timeZone.value.trim(),
-      dateStyle: "full",
-      timeStyle: "short",
+      year: "numeric", month: "long", day: "numeric",
+      hour: "numeric", minute: "2-digit",
       timeZoneName: "short",
     });
-    for (const run of nextRuns(value, { timeZone: timeZone.value.trim(), count: 8 })) {
+    const runs = nextRuns(value, { timeZone: timeZone.value.trim(), count: 8 });
+    for (const run of runs) {
       const item = document.createElement("li");
       item.textContent = formatter.format(run);
       preview.append(item);
@@ -35,6 +43,8 @@ function render() {
       : "Valid. Local clock changes can skip or repeat scheduled wall-clock times.";
     status.dataset.kind = "success";
     copy.disabled = false;
+    displayed = { expression: value, timeZone: timeZone.value.trim(), runs };
+    calendar.disabled = false;
   } catch (error) {
     explanation.textContent = "Fix the expression to see an explanation.";
     status.textContent = error.message;
@@ -61,5 +71,25 @@ copy.addEventListener("click", async () => {
   setTimeout(() => {
     copy.textContent = "Copy expression";
   }, 1200);
+});
+calendar.addEventListener("click", async () => {
+  const snapshot = displayed;
+  if (!snapshot || snapshot.expression !== expression.value.trim() || snapshot.timeZone !== timeZone.value.trim()) {
+    render();
+    return;
+  }
+  try {
+    const data = await previewCalendar(snapshot.expression, snapshot.timeZone, snapshot.runs);
+    if (displayed !== snapshot) return;
+    const url = URL.createObjectURL(new Blob([data], { type: "text/calendar;charset=utf-8" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "cron-preview.ics";
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  } catch (error) {
+    status.textContent = error.message;
+    status.dataset.kind = "error";
+  }
 });
 render();

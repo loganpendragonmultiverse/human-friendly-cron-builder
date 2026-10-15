@@ -2,14 +2,15 @@
 
 Human-Friendly Cron Builder is a dependency-free offline web application for constructing and checking standard five-field cron expressions. It validates ranges, lists, steps, month and weekday names, explains each field with clearer weekday wording, and previews upcoming runs in an IANA time zone.
 
-Use the [live application](https://loganpendragonmultiverse.github.io/human-friendly-cron-builder/) or download the ZIP from the [v1.0.1 release](https://github.com/loganpendragonmultiverse/human-friendly-cron-builder/releases/tag/v1.0.1).
+Use the [live application](https://loganpendragonmultiverse.github.io/human-friendly-cron-builder/) or download the ZIP from the [v1.1.0 release](https://github.com/loganpendragonmultiverse/human-friendly-cron-builder/releases/tag/v1.1.0).
 
 ## Three-minute use
 
 1. Enter a five-field expression such as “0 9 * * MON-FRI”.
 2. Enter an IANA time zone such as “America/New_York”.
 3. Read the field explanation and inspect the next eight runs.
-4. Copy the expression and confirm it in the scheduler that will execute it.
+4. Optionally download the displayed eight runs as a local ICS calendar. It contains UTC events, not a recurring rule or a scheduler connection. Repeated daylight-saving wall times remain separate instants. Re-exporting the same expression, zone and instant retains its UID.
+5. Copy the expression and confirm it in the scheduler that will execute it.
 
 Everything runs inside the browser. There are no accounts, analytics, storage, cookies, or network requests.
 
