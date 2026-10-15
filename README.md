@@ -9,7 +9,7 @@ Use the [live application](https://loganpendragonmultiverse.github.io/human-frie
 1. Enter a five-field expression such as “0 9 * * MON-FRI”.
 2. Enter an IANA time zone such as “America/New_York”.
 3. Read the field explanation and inspect the next eight runs.
-4. Optionally download the displayed eight runs as a local ICS calendar. It contains UTC events, not a recurring rule or a scheduler connection. Repeated daylight-saving wall times remain separate instants. Re-exporting the same expression, zone and instant retains its UID.
+4. Optionally download the displayed eight runs as a local ICS calendar. It contains UTC events, not a recurring rule or a scheduler connection. Repeated daylight-saving wall times remain separate instants. Re-exporting the same expression, zone and instant retains its UID. Event DTSTAMP records when that preview was created.
 5. Copy the expression and confirm it in the scheduler that will execute it.
 
 Everything runs inside the browser. There are no accounts, analytics, storage, cookies, or network requests.

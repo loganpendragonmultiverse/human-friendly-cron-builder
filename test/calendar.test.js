@@ -7,11 +7,13 @@ test("exports exactly previewed UTC instants, including both repeated DST times"
   const expression = "30 1 * * *";
   const zone = "America/New_York";
   const runs = nextRuns(expression, { start: new Date("2026-11-01T04:00:00Z"), timeZone: zone, count: 2 });
-  const text = await previewCalendar(expression, zone, runs);
+  const created = new Date("2026-10-15T21:00:12.345Z");
+  const text = await previewCalendar(expression, zone, runs, created);
+  assert.ok(text.includes("DTSTAMP:20261015T210012Z\r\n"));
   assert.deepEqual([...text.matchAll(/DTSTART:(.*)\r/g)].map((m) => m[1]), ["20261101T053000Z", "20261101T063000Z"]);
   const uids = [...text.replace(/\r\n /g, "").matchAll(/UID:(.*)\r/g)].map((m) => m[1]);
   assert.equal(new Set(uids).size, 2);
-  assert.equal(text, await previewCalendar(expression, zone, runs));
+  assert.equal(text, await previewCalendar(expression, zone, runs, created));
   const single = await previewCalendar(" 30   1 * * * ", zone, [runs[1]]);
   assert.ok(single.replace(/\r\n /g, "").includes(uids[1]));
   assert.ok(!text.includes("RRULE") && !text.includes("VALARM"));
@@ -28,6 +30,7 @@ test("escapes property injection and folds at UTF-8 boundaries", () => {
 
 test("invalid expressions, zones, mismatching or unordered instants reject", async () => {
   const run = new Date("2026-01-01T00:00:00Z");
+  await assert.rejects(() => previewCalendar("* * * * *", "UTC", [run], new Date(NaN)));
   for (const args of [["bad", "UTC", [run]], ["* * * * *", "invalid", [run]],
     ["* * * * *", "", [run]], ["* * * * *", "UTC", []],
     ["1 * * * *", "UTC", [run]], ["* * * * *", "UTC", [run, run]],

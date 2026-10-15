@@ -43,7 +43,7 @@ function render() {
       : "Valid. Local clock changes can skip or repeat scheduled wall-clock times.";
     status.dataset.kind = "success";
     copy.disabled = false;
-    displayed = { expression: value, timeZone: timeZone.value.trim(), runs };
+    displayed = { expression: value, timeZone: timeZone.value.trim(), runs, createdAt: new Date() };
     calendar.disabled = false;
   } catch (error) {
     explanation.textContent = "Fix the expression to see an explanation.";
@@ -79,7 +79,7 @@ calendar.addEventListener("click", async () => {
     return;
   }
   try {
-    const data = await previewCalendar(snapshot.expression, snapshot.timeZone, snapshot.runs);
+    const data = await previewCalendar(snapshot.expression, snapshot.timeZone, snapshot.runs, snapshot.createdAt);
     if (displayed !== snapshot) return;
     const url = URL.createObjectURL(new Blob([data], { type: "text/calendar;charset=utf-8" }));
     const link = document.createElement("a");

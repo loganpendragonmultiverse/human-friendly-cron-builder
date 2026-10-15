@@ -19,7 +19,12 @@ export function foldLine(line) {
   return result;
 }
 
-export async function previewCalendar(expression, timeZone, runs) {
+export async function previewCalendar(expression, timeZone, runs, createdAt = new Date()) {
+  if (!(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime()) ||
+      createdAt.getUTCFullYear() < 1 || createdAt.getUTCFullYear() > 9999) {
+    throw new Error("Export requires a valid creation timestamp.");
+  }
+  const stamp = createdAt.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
   const parsed = parseCron(expression);
   if (!timeZone || !validateTimeZone(timeZone)) throw new Error("Unknown IANA time zone.");
   if (!Array.isArray(runs) || runs.length < 1 || runs.length > 20) {
@@ -42,7 +47,7 @@ export async function previewCalendar(expression, timeZone, runs) {
     const digest = await globalThis.crypto.subtle.digest("SHA-256", new TextEncoder().encode(identity));
     const uid = Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
     lines.push("BEGIN:VEVENT", `UID:${uid}@human-friendly-cron-builder`,
-      `DTSTAMP:${instant}`, `DTSTART:${instant}`,
+      `DTSTAMP:${stamp}`, `DTSTART:${instant}`,
       `SUMMARY:${escapeText("Cron preview: " + parsed.expression)}`,
       `DESCRIPTION:${escapeText("Preview only. Time zone: " + timeZone + ". Confirm in your scheduler. This calendar contains only the displayed instants; it does not schedule jobs.")}`,
       "END:VEVENT");
