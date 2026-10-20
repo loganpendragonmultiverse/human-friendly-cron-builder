@@ -1,6 +1,14 @@
 # Changelog
 
-## 1.2.0 - 2026-10-20
+## 1.2.1 - 2026-10-20
+
+- Inline the dependency-free app and styles in the release entry point so the extracted ZIP opens offline without blocked module fetches.
+
+- Include the MIT license and all four authority documents in the downloadable static application.
+- Complete annual and leap-day previews, numeric-step and Vixie day validation, bounded efficient time-zone searching and manual clipboard fallback from the unpublished candidate.
+- Validate source and installed ZIP workflows across Chromium, Firefox and WebKit at desktop and mobile widths.
+
+## Unpublished 1.2.0 candidate - 2026-10-20
 
 - Preview annual and leap-day schedules across a bounded 100-year window without constructing a time-zone formatter for every minute.
 - Match stepped wildcard day fields using the documented Vixie day rule, and reject impossible month/day combinations and invalid search arguments clearly.

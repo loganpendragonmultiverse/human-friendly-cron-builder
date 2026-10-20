@@ -20,3 +20,19 @@ reference is https://github.com/vixie/cron/blob/master/cron.c and entry.c.
 
 Clipboard refusal reports a useful manual-copy fallback. No persistent browser
 storage, network access, scheduler integration or background work is added.
+
+## 1.2.1 distribution completion
+
+Ship README, DEVELOPMENT, TESTING, CHANGELOG and LICENSE alongside index.html and
+all four runtime source files. The 1.2.0 tag is an immutable unpublished candidate;
+only the completed 1.2.1 distribution is intended for public release. Verify each
+ZIP member against the reviewed tagged source and repeat installed browser flows.
+
+The release ZIP contains a directly openable `index.html`: CSS and the dependency-free
+application modules are inlined at build time, with readable source and license/docs
+also included. Extract the ZIP and open index.html while offline. Browser storage and
+clipboard access still follow browser policy; if your browser blocks file-origin
+storage, serve the extracted folder locally with `python -m http.server 8000` and open
+`http://localhost:8000/`. This local server works without an Internet connection.
+Release acceptance exercises the actual ZIP's file-protocol entry point and local HTTP
+flows, including keyboard controls and exported files.

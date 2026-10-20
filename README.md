@@ -2,7 +2,7 @@
 
 Human-Friendly Cron Builder is a dependency-free offline web application for constructing and checking standard five-field cron expressions. It validates ranges, lists, steps, month and weekday names, explains each field with clearer weekday wording, and previews upcoming runs in an IANA time zone.
 
-Use the [live application](https://loganpendragonmultiverse.github.io/human-friendly-cron-builder/) or download the ZIP from the [v1.2.0 release](https://github.com/loganpendragonmultiverse/human-friendly-cron-builder/releases/tag/v1.2.0).
+Use the [live application](https://loganpendragonmultiverse.github.io/human-friendly-cron-builder/) or download the ZIP from the [v1.2.1 release](https://github.com/loganpendragonmultiverse/human-friendly-cron-builder/releases/tag/v1.2.1).
 
 ## Three-minute use
 
@@ -41,3 +41,12 @@ Node.js 20 or newer is required for development only. The deployed application h
 ## More open-source projects
 
 This project is part of the [Logan Pendragon Forge open-source collection](https://www.loganpendragonforge.com/open-source/). Browse the catalog for other released tools, source repositories, live demos, and downloads.
+
+The release ZIP contains a directly openable `index.html`: CSS and the dependency-free
+application modules are inlined at build time, with readable source and license/docs
+also included. Extract the ZIP and open index.html while offline. Browser storage and
+clipboard access still follow browser policy; if your browser blocks file-origin
+storage, serve the extracted folder locally with `python -m http.server 8000` and open
+`http://localhost:8000/`. This local server works without an Internet connection.
+Release acceptance exercises the actual ZIP's file-protocol entry point and local HTTP
+flows, including keyboard controls and exported files.
