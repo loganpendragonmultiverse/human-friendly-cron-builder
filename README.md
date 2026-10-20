@@ -2,7 +2,7 @@
 
 Human-Friendly Cron Builder is a dependency-free offline web application for constructing and checking standard five-field cron expressions. It validates ranges, lists, steps, month and weekday names, explains each field with clearer weekday wording, and previews upcoming runs in an IANA time zone.
 
-Use the [live application](https://loganpendragonmultiverse.github.io/human-friendly-cron-builder/) or download the ZIP from the [v1.1.0 release](https://github.com/loganpendragonmultiverse/human-friendly-cron-builder/releases/tag/v1.1.0).
+Use the [live application](https://loganpendragonmultiverse.github.io/human-friendly-cron-builder/) or download the ZIP from the [v1.2.0 release](https://github.com/loganpendragonmultiverse/human-friendly-cron-builder/releases/tag/v1.2.0).
 
 ## Three-minute use
 
@@ -17,12 +17,18 @@ Everything runs inside the browser. There are no accounts, analytics, storage, c
 ## Supported semantics
 
 - Five fields: minute, hour, day of month, month, and day of week.
-- Wildcards, comma lists, ascending ranges, and steps on wildcards or ranges.
+- Wildcards, comma lists, ascending ranges, and positive decimal-integer steps on wildcards or ranges. A step larger than a field span selects only the range start; aliases cannot be steps.
 - Three-letter English month and weekday aliases.
 - Sunday may be 0 or 7.
-- When day of month and day of week are both restricted, Vixie-style OR behavior is used.
+- When neither day field starts with `*`, Vixie-style OR behavior is used. If either starts with `*` (including steps), both day fields must match.
+- Annual and leap-day previews search up to 100 years; impossible month/day combinations are rejected.
+- Preview times remain ordered UTC instants through skipped or repeated local clock times.
 
 Quartz syntax, seconds, years, L, W, #, ?, nicknames such as @daily, and wraparound ranges are deliberately rejected. Daylight-saving transitions can skip or repeat local wall-clock times. Cron implementations differ, so the preview is a review aid rather than a production guarantee.
+
+## Gold scope
+
+The complete offline five-field builder, time-zone preview and one-off calendar export are implemented and tested. It remains a review aid: no job execution, persistence or scheduler connection is included. See [TESTING.md](TESTING.md) for acceptance coverage.
 
 ## Development
 

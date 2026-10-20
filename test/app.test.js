@@ -31,6 +31,10 @@ test("UI exports its displayed snapshot and disables export on invalid edits", a
     assert.equal(download.download, "cron-preview.ics");
     assert.equal(download.clicked, true);
     assert.equal((await blob.text()).match(/BEGIN:VEVENT/g).length, 8);
+    Object.defineProperty(globalThis, "navigator", {configurable: true, value: {clipboard: {writeText: async () => {throw new Error("denied");}}}});
+    await elements.copy.handlers.click();
+    assert.match(elements.status.textContent, /copy the expression manually/);
+    delete globalThis.navigator;
     elements.expression.value = "invalid";
     elements.expression.handlers.input();
     assert.equal(elements.calendar.disabled, true);
