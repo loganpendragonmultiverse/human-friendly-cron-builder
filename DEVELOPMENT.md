@@ -20,3 +20,10 @@ reference is https://github.com/vixie/cron/blob/master/cron.c and entry.c.
 
 Clipboard refusal reports a useful manual-copy fallback. No persistent browser
 storage, network access, scheduler integration or background work is added.
+
+## 1.2.1 distribution completion
+
+Ship README, DEVELOPMENT, TESTING, CHANGELOG and LICENSE alongside index.html and
+all four runtime source files. The 1.2.0 tag is an immutable unpublished candidate;
+only the completed 1.2.1 distribution is intended for public release. Verify each
+ZIP member against the reviewed tagged source and repeat installed browser flows.

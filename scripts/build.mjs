@@ -8,3 +8,7 @@ for (const name of ["app.js", "calendar.js", "cron.js", "styles.css"]) {
   await cp(new URL("../src/" + name, import.meta.url), new URL("src/" + name, out));
 }
 console.log(out.pathname);
+
+for (const name of ["README.md", "DEVELOPMENT.md", "TESTING.md", "CHANGELOG.md", "LICENSE"]) {
+  await cp(new URL("../" + name, import.meta.url), new URL(name, out));
+}
