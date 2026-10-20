@@ -41,3 +41,12 @@ Node.js 20 or newer is required for development only. The deployed application h
 ## More open-source projects
 
 This project is part of the [Logan Pendragon Forge open-source collection](https://www.loganpendragonforge.com/open-source/). Browse the catalog for other released tools, source repositories, live demos, and downloads.
+
+The release ZIP contains a directly openable `index.html`: CSS and the dependency-free
+application modules are inlined at build time, with readable source and license/docs
+also included. Extract the ZIP and open index.html while offline. Browser storage and
+clipboard access still follow browser policy; if your browser blocks file-origin
+storage, serve the extracted folder locally with `python -m http.server 8000` and open
+`http://localhost:8000/`. This local server works without an Internet connection.
+Release acceptance exercises the actual ZIP's file-protocol entry point and local HTTP
+flows, including keyboard controls and exported files.

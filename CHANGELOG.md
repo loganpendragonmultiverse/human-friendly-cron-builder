@@ -2,6 +2,8 @@
 
 ## 1.2.1 - 2026-10-20
 
+- Inline the dependency-free app and styles in the release entry point so the extracted ZIP opens offline without blocked module fetches.
+
 - Include the MIT license and all four authority documents in the downloadable static application.
 - Complete annual and leap-day previews, numeric-step and Vixie day validation, bounded efficient time-zone searching and manual clipboard fallback from the unpublished candidate.
 - Validate source and installed ZIP workflows across Chromium, Firefox and WebKit at desktop and mobile widths.
