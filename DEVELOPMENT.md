@@ -7,3 +7,16 @@ It does not execute jobs, connect to servers, persist schedules, emulate every c
 ## 1.1.0 calendar export
 
 Export exactly the cached preview instants as RFC 5545 UTC events, with SHA-256 identities from expression, zone and instant. Validate before export, escape text, and fold UTF-8 lines at 75 octets. No recurrence, storage, accounts or scheduler integration. Explicit date-format fields allow the preview to include a zone label.
+
+## 1.2.0 completion pass
+
+Keep the original offline five-field scope. Previews traverse UTC hours using a
+single formatter, skip nonmatching calendar days only when their local clock advances without an offset change, enumerate matching minutes only when the local hour is stable,
+and inspect each minute at local-hour/offset transitions. Preserve explicit bounded
+searches, UTC ordering and both instants of repeated wall times. The default horizon
+is 100 years to support eight leap-day runs. Impossible month/day combinations fail
+before searching. Day matching follows Vixie cron's leading-asterisk rule; the source
+reference is https://github.com/vixie/cron/blob/master/cron.c and entry.c.
+
+Clipboard refusal reports a useful manual-copy fallback. No persistent browser
+storage, network access, scheduler integration or background work is added.

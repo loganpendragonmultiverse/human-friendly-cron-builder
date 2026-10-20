@@ -66,7 +66,13 @@ for (const button of presets) {
   });
 }
 copy.addEventListener("click", async () => {
-  await navigator.clipboard.writeText(expression.value.trim());
+  try {
+    await navigator.clipboard.writeText(expression.value.trim());
+  } catch {
+    status.textContent = "Clipboard unavailable. Select and copy the expression manually.";
+    status.dataset.kind = "error";
+    return;
+  }
   copy.textContent = "Copied";
   setTimeout(() => {
     copy.textContent = "Copy expression";
